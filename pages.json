@@ -10,10 +10,18 @@
 		"style": {
 			"navigationBarTitleText": "picker"
 		}
-	}],
+	}    ,{
+            "path" : "pages/home/home",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/personalinfo/personalinfo",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#0081ff",
-		"navigationBarTitleText": "招聘",
+		"navigationBarTitleText": "中核二二",
 		"navigationStyle": "custom",
 		"navigationBarTextStyle": "white"
 	},

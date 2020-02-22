@@ -55,7 +55,10 @@
         }
     },
     "h5" : {
-        "title" : "ColorUi for UniApp",
-        "domain" : "demo.color-ui.com"
+        "title" : "jobs",
+        "domain" : "www.qrsfrc.cn",
+        "router" : {
+            "base" : "/jobs/"
+        }
     }
 }
