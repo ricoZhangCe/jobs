@@ -18,6 +18,26 @@
             "path" : "pages/personalinfo/personalinfo",
             "style" : {}
         }
+        ,{
+            "path" : "pages/workinfo/workinfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/educationinfo/educationinfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/emergencyinfo/emergencyinfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/awardinfo/awardinfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/certificateinfo/certificateinfo",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#0081ff",

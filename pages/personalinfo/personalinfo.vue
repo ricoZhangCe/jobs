@@ -2,7 +2,7 @@
 	<view>
 		<cu-custom id="topNode" bgColor="bg-title-22" :isBack="true">
 			<block slot="backText">返回</block>
-			<block slot="content">中核二二招聘</block>
+			<block slot="content">中核二二招聘{{pagenum}}</block>
 		</cu-custom>
 		<view id="headNode" class="bg-white padding">
 			<view class="cu-steps">
@@ -125,7 +125,7 @@
 					</view>
 				</view>
 				<view class="cu-form-group2 grid col-1">
-					<view class="title2 text-green "><text class="cuIcon-add"></text><text class="">添加工作经历</text></view>
+					<view class="title2 text-green" @tap="goWorkinfo"><text class="cuIcon-add"></text><text class="">添加工作经历</text></view>
 				</view>
 				<view class="cu-form-group margin-top grid col-1">
 					<view class="title"><text class="cuIcon-titles text-green"></text>教育经历<button class="cu-btn2 round text-sm" :class="['lines-red', '']">必填</button></view>
@@ -134,7 +134,7 @@
 					</view>
 				</view>
 				<view class="cu-form-group2 grid col-1">
-					<view class="title2 text-green "><text class="cuIcon-add"></text><text class="">添加教育经历</text></view>
+					<view class="title2 text-green" @tap="goEducationinfo"><text class="cuIcon-add"></text><text class="">添加教育经历</text></view>
 				</view>
 				<view class="cu-form-group margin-top grid col-1">
 					<view class="title"><text class="cuIcon-titles text-green"></text>紧急联系人<button class="cu-btn2 round text-sm" :class="['lines-red', '']">必填</button></view>
@@ -143,7 +143,25 @@
 					</view>
 				</view>
 				<view class="cu-form-group2 grid col-1">
-					<view class="title2 text-green "><text class="cuIcon-add"></text><text class="">添加紧急联系人</text></view>
+					<view class="title2 text-green" @tap="goEmergencyinfo"><text class="cuIcon-add"></text><text class="">添加紧急联系人</text></view>
+				</view>
+				<view class="cu-form-group margin-top grid col-1">
+					<view class="title"><text class="cuIcon-titles text-green"></text>获奖情况</view>
+					<view class="text-gray">
+						
+					</view>
+				</view>
+				<view class="cu-form-group2 grid col-1">
+					<view class="title2 text-green" @tap="goAwardinfo"><text class="cuIcon-add"></text><text class="">添加获奖情况</text></view>
+				</view>
+				<view class="cu-form-group margin-top grid col-1">
+					<view class="title"><text class="cuIcon-titles text-green"></text>证书/证件</view>
+					<view class="text-gray">
+						请填写取得的证书或证件
+					</view>
+				</view>
+				<view class="cu-form-group2 grid col-1">
+					<view class="title2 text-green" @tap="goCertificateinfo"><text class="cuIcon-add"></text><text class="">添加紧证书/证件</text></view>
 				</view>
 			</form>
 		</scroll-view>
@@ -262,11 +280,13 @@
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
-				}
+				},
+				pagenum:0,
 			}
 		},
 		onLoad(e) {
-			let pages = getCurrentPages();
+			let pages = getCurrentPages()
+			this.pagenum = pages.length
 			console.info("onload", e, pages)
 			if (e != undefined && e != null && e.positionId != undefined) {
 				this.positionId = e.positionId
@@ -275,7 +295,7 @@
 
 		},
 		onShow() {
-			let pages = getCurrentPages();
+			let pages = getCurrentPages()
 			console.info("onShow", pages)
 		},
 		onReady() {
@@ -360,6 +380,31 @@
 			onZzmbConfirm(val) {
 				console.log(val);
 				this.zzmb = val.result
+			},
+			goWorkinfo(){
+				uni.navigateTo({
+					url:"../workinfo/workinfo"
+				})
+			},
+			goEducationinfo(){
+				uni.navigateTo({
+					url:"../educationinfo/educationinfo"
+				})
+			},
+			goEmergencyinfo(){
+				uni.navigateTo({
+					url:"../emergencyinfo/emergencyinfo"
+				})
+			},
+			goAwardinfo(){
+				uni.navigateTo({
+					url:"../awardinfo/awardinfo"
+				})
+			},
+			goCertificateinfo(){
+				uni.navigateTo({
+					url:"../certificateinfo/certificateinfo"
+				})
 			},
 		}
 	}
