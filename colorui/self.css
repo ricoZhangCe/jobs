@@ -6,3 +6,194 @@
  	background-color: #0054a2;
  	color: #FFFFFF;
  }
+ 
+ .picker2 {
+ 	flex: 1;
+ 	padding-right: 40upx;
+ 	overflow: hidden;
+ 	position: relative;
+ }
+ 
+ .cu-form-group .picker2 {
+ 	line-height: 100upx;
+ 	font-size: 28upx;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	width: 100%;
+ 	text-align: left;
+ }
+ 
+ .picker2::after {
+ 	font-family: cuIcon;
+ 	display: block;
+ 	content: "\e6a3";
+ 	position: absolute;
+ 	font-size: 34upx;
+ 	color: #8799a3;
+ 	line-height: 100upx;
+ 	width: 60upx;
+ 	text-align: center;
+ 	top: 0;
+ 	bottom: 0;
+ 	right: -20upx;
+ 	margin: auto;
+ }
+ 
+ .cu-form-group2 .title2 {
+ 	text-align: center;
+ 	padding-right: 30upx;
+ 	font-size: 30upx;
+ 	position: relative;
+ 	height: 60upx;
+ 	line-height: 60upx;
+ }
+ 
+ .cu-form-group2 {
+ 	background-color: #ffffff;
+ 	padding: 1upx 30upx;
+ 	display: flex;
+ 	align-items: center;
+ 	min-height: 100upx;
+ 	justify-content: space-between;
+ }
+ 
+ .cu-form-group+.cu-form-group2 {
+ 	border-top: 1upx solid #eee;
+ }
+ .detail{
+ 	margin-top: 10upx;
+ 	margin-bottom: 10upx;
+ }
+ .detail.picker3 {
+ 	flex: 1;
+ 	padding-right: 40upx;
+ 	overflow: hidden;
+ 	position: relative;
+ 	border-top: 1upx solid #eee;
+ }
+ .picker3::after {
+ 	font-family: cuIcon;
+ 	display: block;
+ 	content: "\e6a3";
+ 	position: absolute;
+ 	font-size: 34upx;
+ 	color: #8799a3;
+ 	line-height: 100upx;
+ 	width: 60upx;
+ 	text-align: center;
+ 	top: 0;
+ 	bottom: 0;
+ 	right: -20upx;
+ 	margin: auto;
+ }
+ .border-b{
+ 	border-bottom: 1upx solid green;
+ }
+ /* ==================
+           按钮
+  ==================== */
+ 
+ .cu-btn2 {
+ 	position: relative;
+ 	border: 0upx;
+ 	display: inline-flex;
+ 	align-items: center;
+ 	justify-content: center;
+ 	box-sizing: border-box;
+ 	padding: 0 26upx;
+ 	font-size: 20upx;
+ 	height: 40upx;
+ 	line-height: 1;
+ 	text-align: center;
+ 	text-decoration: none;
+ 	overflow: visible;
+ 	margin-left: 10upx;
+ 	transform: translate(0upx, 0upx);
+ 	margin-right: initial;
+ }
+ 
+ .cu-btn2::after {
+ 	display: none;
+ }
+ 
+ .cu-btn2:not([class*="bg-"]) {
+ 	background-color: #f0f0f0;
+ }
+ 
+ .cu-btn2[class*="line"] {
+ 	background-color: transparent;
+ }
+ 
+ .cu-btn2[class*="line"]::after {
+ 	content: " ";
+ 	display: block;
+ 	width: 200%;
+ 	height: 200%;
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	border: 1upx solid currentColor;
+ 	transform: scale(0.5);
+ 	transform-origin: 0 0;
+ 	box-sizing: border-box;
+ 	border-radius: 12upx;
+ 	z-index: 1;
+ 	pointer-events: none;
+ }
+ 
+ .cu-btn2.round[class*="line"]::after {
+ 	border-radius: 1000upx;
+ }
+ 
+ .cu-btn2[class*="lines"]::after {
+ 	border: 6upx solid currentColor;
+ }
+ 
+ .cu-btn2[class*="bg-"]::after {
+ 	display: none;
+ }
+ 
+ .cu-btn2.sm {
+ 	padding: 0 20upx;
+ 	font-size: 20upx;
+ 	height: 48upx;
+ }
+ 
+ .cu-btn2.lg {
+ 	padding: 0 40upx;
+ 	font-size: 32upx;
+ 	height: 80upx;
+ }
+ 
+ .cu-btn2.cuIcon.sm {
+ 	width: 48upx;
+ 	height: 48upx;
+ }
+ 
+ .cu-btn2.cuIcon {
+ 	width: 64upx;
+ 	height: 64upx;
+ 	border-radius: 500upx;
+ 	padding: 0;
+ }
+ 
+ .cu-btn2.shadow-blur::before {
+ 	top: 4upx;
+ 	left: 4upx;
+ 	filter: blur(6upx);
+ 	opacity: 0.6;
+ }
+ 
+ .cu-btn2.button-hover {
+ 	transform: translate(1upx, 1upx);
+ }
+ 
+ .cu-btn2.block {
+ 	display: flex;
+ }
+ 
+ .cu-btn2[disabled] {
+ 	opacity: 0.6;
+ 	color: #ffffff;
+ }

@@ -2,12 +2,12 @@
 	<view>
 		<cu-custom id="topNode" bgColor="bg-title-22" :isBack="true">
 			<block slot="backText">返回</block>
-			<block slot="content">中核二二招聘{{pagenum}}</block>
+			<block slot="content">中核二二招聘</block>
 		</cu-custom>
 		<view id="headNode" class="bg-white padding">
 			<view class="cu-steps">
-				<view class="cu-item"  v-for="(item,index) in numList" :key="index">
-					<text class="num " :class="index>0?'':'text-blue'"  :data-index="index + 1"></text><text :class="index>0?'':'text-blue'">{{item.name}}</text>
+				<view class="cu-item" v-for="(item,index) in numList" :key="index">
+					<text class="num " :class="index>0?'':'text-green'" :data-index="index + 1"></text><text :class="index>0?'':'text-green border-b'">{{item.name}}</text>
 				</view>
 			</view>
 		</view>
@@ -46,7 +46,7 @@
 				<view class="cu-form-group flex flex-wrap">
 					<view class="basis-sm title"><text class='cuIcon-title text-red'></text>证件号码</view>
 					<view class="basis-lg">
-						<input placeholder="请输入" placeholder-class="text-gray" v-model="idcard" name="input"></input>
+						<input placeholder="请输入" placeholder-class="text-gray" v-model="idcard" type="idcard" name="input"></input>
 					</view>
 				</view>
 				<view class="cu-form-group flex flex-wrap">
@@ -87,7 +87,7 @@
 				</view>
 				<view class="cu-form-group flex flex-wrap">
 					<view class="basis-sm title">自我评价</view>
-					<textarea maxlength="-1" :disabled="zwpj!=null" @input="textareaBInput" v-model="zwpj" placeholder="请输入"
+					<textarea maxlength="-1" v-model="zwpj" placeholder="请输入"
 					 placeholder-class="text-gray"></textarea>
 				</view>
 				<view class="cu-form-group margin-top grid col-1">
@@ -96,7 +96,7 @@
 				<view class="cu-form-group flex flex-wrap">
 					<view class="basis-sm  title"><text class='cuIcon-title text-red'></text>手机号码</view>
 					<!-- <view class="basis-lg"><input placeholder="请输入" placeholder-class="text-gray" v-model="pname" name="input"></input> </view>-->
-					<input placeholder="请输入" placeholder-class="text-gray" v-model="mobile" name="input"></input>
+					<input placeholder="请输入" placeholder-class="text-gray" v-model="mobile" type="number" name="input"></input>
 					<view class="cu-capsule radius">
 						<view class='cu-tag bg-blue '>
 							+86
@@ -115,13 +115,18 @@
 				<view class="cu-form-group flex flex-wrap">
 					<view class="basis-sm title"><text class='cuIcon-title text-red'></text>QQ号</view>
 					<view class="basis-lg">
-						<input placeholder="请输入" placeholder-class="text-gray" v-model="qq" type="digit" name="input"></input>
+						<input placeholder="请输入" placeholder-class="text-gray" v-model="qq" type="number" name="input"></input>
 					</view>
 				</view>
 				<view class="cu-form-group margin-top grid col-1">
 					<view class="title"><text class="cuIcon-titles text-green"></text>工作经历</view>
 					<view class="text-gray">
 						请填写大学的实习经历，不填写默认为无实习经历
+					</view>
+					<view class="detail" v-for="(item,index) in workinfoList" v-bind:key="index">
+						<view class="title picker3" @tap="goWorkinfoDetail" :data-id='item.id' :data-num='item.wknum'>{{item.wkunit}}</view>
+						<view class="text-gray">{{item.zw}}</view>
+						<view class="text-gray">{{item.begindate}} 至 {{item.enddate}}</view>
 					</view>
 				</view>
 				<view class="cu-form-group2 grid col-1">
@@ -137,7 +142,8 @@
 					<view class="title2 text-green" @tap="goEducationinfo"><text class="cuIcon-add"></text><text class="">添加教育经历</text></view>
 				</view>
 				<view class="cu-form-group margin-top grid col-1">
-					<view class="title"><text class="cuIcon-titles text-green"></text>紧急联系人<button class="cu-btn2 round text-sm" :class="['lines-red', '']">必填</button></view>
+					<view class="title"><text class="cuIcon-titles text-green"></text>紧急联系人<button class="cu-btn2 round text-sm"
+						 :class="['lines-red', '']">必填</button></view>
 					<view class="text-gray">
 						请填写紧急情况下的联系人、联系电话
 					</view>
@@ -148,7 +154,7 @@
 				<view class="cu-form-group margin-top grid col-1">
 					<view class="title"><text class="cuIcon-titles text-green"></text>获奖情况</view>
 					<view class="text-gray">
-						
+
 					</view>
 				</view>
 				<view class="cu-form-group2 grid col-1">
@@ -165,7 +171,7 @@
 				</view>
 			</form>
 		</scroll-view>
-		<view id="bottomNode" class="cu-bar bg-green">
+		<view id="bottomNode" class="cu-bar bg-green" @tap="goNext">
 			<view class="content text-bold">
 				下一步
 			</view>
@@ -181,6 +187,7 @@
 
 <script>
 	import wPicker from "@/components/w-picker/w-picker.vue"
+	import {getWorkinfoList} from "../../static/data/workinfo.js"
 	export default {
 		components: {
 			wPicker
@@ -281,12 +288,11 @@
 				old: {
 					scrollTop: 0
 				},
-				pagenum:0,
+				workinfoList:getWorkinfoList(),
 			}
 		},
 		onLoad(e) {
 			let pages = getCurrentPages()
-			this.pagenum = pages.length
 			console.info("onload", e, pages)
 			if (e != undefined && e != null && e.positionId != undefined) {
 				this.positionId = e.positionId
@@ -303,16 +309,15 @@
 			let _this = this
 			uni.createSelectorQuery().select('#topNode').boundingClientRect(function(rect) {
 				_this.topNodeHeight = rect.height
-				console.info(" rect", rect, _this.topNodeHeight)
-
+				//console.info(" rect", rect, _this.topNodeHeight)
 			}).exec()
 			uni.createSelectorQuery().select('#headNode').boundingClientRect(function(rect) {
 				_this.headNodeHeight = rect.height
-				console.info(" rect", rect, _this.headNodeHeight)
+				//console.info(" rect", rect, _this.headNodeHeight)
 			}).exec()
 			uni.createSelectorQuery().select('#bottomNode').boundingClientRect(function(rect) {
 				_this.bottomNodeHeight = rect.height
-				console.info(" rect", rect, _this.bottomNodeHeight)
+				//console.info(" rect", rect, _this.bottomNodeHeight)
 			}).exec()
 			let sys = uni.getSystemInfoSync();
 
@@ -338,7 +343,7 @@
 				console.log(e)
 			},
 			scroll: function(e) {
-				console.log(e)
+				//console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			goTop: function(e) {
@@ -381,29 +386,42 @@
 				console.log(val);
 				this.zzmb = val.result
 			},
-			goWorkinfo(){
+			goWorkinfo() {
 				uni.navigateTo({
-					url:"../workinfo/workinfo"
+					url: "../workinfo/workinfo?num="+(this.workinfoList.length+1)
 				})
 			},
-			goEducationinfo(){
+			goWorkinfoDetail(e){
+				console.info("goWorkinfoDetail",e)
+				let id = e.currentTarget.dataset.id
+				let num = e.currentTarget.dataset.num
 				uni.navigateTo({
-					url:"../educationinfo/educationinfo"
+					url: "../workinfo/workinfo?num="+num+"&id="+id
 				})
 			},
-			goEmergencyinfo(){
+			goEducationinfo() {
 				uni.navigateTo({
-					url:"../emergencyinfo/emergencyinfo"
+					url: "../educationinfo/educationinfo"
 				})
 			},
-			goAwardinfo(){
+			goEmergencyinfo() {
 				uni.navigateTo({
-					url:"../awardinfo/awardinfo"
+					url: "../emergencyinfo/emergencyinfo"
 				})
 			},
-			goCertificateinfo(){
+			goAwardinfo() {
 				uni.navigateTo({
-					url:"../certificateinfo/certificateinfo"
+					url: "../awardinfo/awardinfo"
+				})
+			},
+			goCertificateinfo() {
+				uni.navigateTo({
+					url: "../certificateinfo/certificateinfo"
+				})
+			},
+			goNext() {
+				uni.navigateTo({
+					url: "personalinfo2"
 				})
 			},
 		}
@@ -411,165 +429,5 @@
 </script>
 
 <style>
-	.picker2 {
-		flex: 1;
-		padding-right: 40upx;
-		overflow: hidden;
-		position: relative;
-	}
-
-	.cu-form-group .picker2 {
-		line-height: 100upx;
-		font-size: 28upx;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-		width: 100%;
-		text-align: left;
-	}
-
-	.picker2::after {
-		font-family: cuIcon;
-		display: block;
-		content: "\e6a3";
-		position: absolute;
-		font-size: 34upx;
-		color: #8799a3;
-		line-height: 100upx;
-		width: 60upx;
-		text-align: center;
-		top: 0;
-		bottom: 0;
-		right: -20upx;
-		margin: auto;
-	}
 	
-	.cu-form-group2 .title2 {
-		text-align: center;
-		padding-right: 30upx;
-		font-size: 30upx;
-		position: relative;
-		height: 60upx;
-		line-height: 60upx;
-	}
-	
-	.cu-form-group2 {
-		background-color: #ffffff;
-		padding: 1upx 30upx;
-		display: flex;
-		align-items: center;
-		min-height: 100upx;
-		justify-content: space-between;
-	}
-	.cu-form-group+.cu-form-group2 {
-		border-top: 1upx solid #eee;
-	}
-	
-	/* ==================
-	          按钮
-	 ==================== */
-	
-	.cu-btn2 {
-		position: relative;
-		border: 0upx;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		box-sizing: border-box;
-		padding: 0 26upx;
-		font-size: 20upx;
-		height: 40upx;
-		line-height: 1;
-		text-align: center;
-		text-decoration: none;
-		overflow: visible;
-		margin-left: 10upx;
-		transform: translate(0upx, 0upx);
-		margin-right: initial;
-	}
-	
-	.cu-btn2::after {
-		display: none;
-	}
-	
-	.cu-btn2:not([class*="bg-"]) {
-		background-color: #f0f0f0;
-	}
-	
-	.cu-btn2[class*="line"] {
-		background-color: transparent;
-	}
-	
-	.cu-btn2[class*="line"]::after {
-		content: " ";
-		display: block;
-		width: 200%;
-		height: 200%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		border: 1upx solid currentColor;
-		transform: scale(0.5);
-		transform-origin: 0 0;
-		box-sizing: border-box;
-		border-radius: 12upx;
-		z-index: 1;
-		pointer-events: none;
-	}
-	
-	.cu-btn2.round[class*="line"]::after {
-		border-radius: 1000upx;
-	}
-	
-	.cu-btn2[class*="lines"]::after {
-		border: 6upx solid currentColor;
-	}
-	
-	.cu-btn2[class*="bg-"]::after {
-		display: none;
-	}
-	
-	.cu-btn2.sm {
-		padding: 0 20upx;
-		font-size: 20upx;
-		height: 48upx;
-	}
-	
-	.cu-btn2.lg {
-		padding: 0 40upx;
-		font-size: 32upx;
-		height: 80upx;
-	}
-	
-	.cu-btn2.cuIcon.sm {
-		width: 48upx;
-		height: 48upx;
-	}
-	
-	.cu-btn2.cuIcon {
-		width: 64upx;
-		height: 64upx;
-		border-radius: 500upx;
-		padding: 0;
-	}
-	
-	.cu-btn2.shadow-blur::before {
-		top: 4upx;
-		left: 4upx;
-		filter: blur(6upx);
-		opacity: 0.6;
-	}
-	
-	.cu-btn2.button-hover {
-		transform: translate(1upx, 1upx);
-	}
-	
-	.cu-btn2.block {
-		display: flex;
-	}
-	
-	.cu-btn2[disabled] {
-		opacity: 0.6;
-		color: #ffffff;
-	}
 </style>

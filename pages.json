@@ -38,6 +38,10 @@
             "path" : "pages/certificateinfo/certificateinfo",
             "style" : {}
         }
+        ,{
+            "path" : "pages/personalinfo/personalinfo2",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#0081ff",
