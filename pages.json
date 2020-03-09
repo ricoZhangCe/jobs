@@ -42,6 +42,10 @@
             "path" : "pages/personalinfo/personalinfo2",
             "style" : {}
         }
+        ,{
+            "path" : "pages/test/test",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#0081ff",
